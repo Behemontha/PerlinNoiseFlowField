@@ -7,20 +7,21 @@ PVector[] flowField;
 
 void setup()
 {
-  size(400, 400);
+  size(800, 600, P2D);
   cols = floor(width / scl);
   rows = floor(height / scl);
   
-  particles = new Particle[500];
+  particles = new Particle[1000];
   for(int i = 0; i < particles.length; ++i)
     particles[i] = new Particle();
     
   flowField = new PVector[cols * rows];
+  
+  background(255);
 }
 
 void draw()
 {
-  background(255);
   float yoff = 0;
   for(int y = 0; y < rows; y++) {
     float xoff = 0;
@@ -31,15 +32,6 @@ void draw()
       PVector v = PVector.fromAngle(angle);
       v.setMag(1); // set the power of the field on the particle
       flowField[index] = v;
-      
-      // draw the vector
-      stroke(0, 50);
-      pushMatrix();
-      translate(x * scl, y * scl);
-      rotate(v.heading());
-      strokeWeight(1);
-      line(0, 0, scl, 0);
-      popMatrix();
       
       xoff += inc;
     }
